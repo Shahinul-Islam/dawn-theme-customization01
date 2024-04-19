@@ -1,0 +1,380 @@
+<section class="container">
+    {% for block in section.blocks %}
+        <p class="loop-text">
+            {% if block.settings.icon != blank %}  
+                <span>
+                    <img
+                    width="{{block.settings.icon_size}}"
+                    height="{{block.settings.icon_size}}"
+                    class="icon"
+                    src="{{ block.settings.icon | image_url }}"
+                    alt="icon"
+                    srcset=""
+                    />
+                </span>
+            {% endif %}
+            <span class="message">
+              {% if block.settings.message_url != blank %}  
+                <a href="{{block.settings.message_url}}" target="_blank" rel="noopener noreferrer">
+                  {{block.settings.message}}
+                </a>
+                {% else %}
+                {{block.settings.message}}
+              {% endif %}
+            </span>
+            {% comment %} {% if block.settings.icon != blank %}
+                {% unless forloop.last == false %} 
+                    <span>
+                        <img
+                        width="{{block.settings.icon_size}}"
+                        height="{{block.settings.icon_size}}"
+                        class="icon"
+                        src="{{ block.settings.icon | image_url }}"
+                        alt="icon"
+                        srcset=""
+                        />
+                    </span>
+                {% endunless %}
+            {%endif%} {% endcomment %}
+            
+        </p>
+    {% endfor %}
+    
+    
+    
+  </section>
+
+  <style>
+    .container {
+        display: flex;
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        background-color: {{section.settings.marquee-bar-color}};
+        color:{{section.settings.colorText}};
+        border-left:{{section.settings.border_width}};
+        border-right:{{section.settings.border_width}};
+        border-top:{{section.settings.border_width}};
+        border-bottom:{{section.settings.border_width}};;
+        border-style: {{section.settings.border_style}};
+        border-color:{{section.settings.border_color}}
+
+  
+    }
+.icon {
+  
+  margin-left: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.loop-text {
+  font-family: {{section.settings.text_family}};
+  font-size: {{section.settings.text_size}};
+  text-transform: {{section.settings.text_transform}};
+  font-weight: {{section.settings.text_weight}};
+  padding: {{section.settings.message_padding}};
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  margin:0px;
+}
+.message a{
+  text-decoration: none;
+}
+
+.message a:visited{
+  color: inherit;
+}
+
+{% if section.settings.direction == "left" %}
+    .loop-text {
+      animation: loopTextLtR {{ section.settings.speed }}s infinite linear;
+    }
+  {% else %}
+    .loop-text {
+      animation: loopText {{ section.settings.speed }}s infinite linear;
+    }
+  {% endif %}
+{% if section.settings.pause_on_hover %} 
+    .container:hover .loop-text{
+        animation: none;
+    }
+    
+{% endif %}
+
+@keyframes loopText {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes loopTextLtR {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+  </style>
+
+{% schema %}
+
+    {
+      "name": "Text Scrolling Effect",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_marquee_bar",
+          "label": "Show"
+        },
+        {
+            "type": "color",
+            "id": "marquee-bar-color",
+            "label": "Marquee-Bar-Color",
+            "default":"#FFA500"
+        },
+        {
+          "type": "select",
+          "id": "direction",
+          "options": [
+            {
+              "value": "left",
+              "label": "Right to Left"
+            },
+            {
+              "value": "right",
+              "label": "Left to Right"
+            }
+          ],
+          "default": "right",
+          "label": "Direction"
+        },
+    
+        {
+          "type": "checkbox",
+          "id": "pause_on_hover",
+          "label": "Pause on hover"
+        },    
+    
+        {
+          "type": "text",
+          "id": "speed",
+          "label": "Speed (Less is Faster)",
+          "default": "4"
+        },
+        {
+            "type": "text",
+            "id": "text_size",
+            "label": "Text Size",
+            "default":"22px"
+        },
+        {
+            "type": "text",
+            "id": "message_padding",
+            "label": "Message Padding",
+            "default": "4px",
+            "info": "First value for top and bottom and last value for left and right (ex: 1px 4px)"
+        },
+        {
+            "type": "select",
+            "id": "text_family",
+            "label": "Font Family",
+            "default": "Arial, sans-serif",
+            "options": [
+                    {
+                    "value": "Arial, sans-serif",
+                    "label": "Arial"
+                    },
+                    {
+                    "value": "Helvetica, sans-serif",
+                    "label": "Helvetica"
+                    },
+                    {
+                    "value": "Times New Roman, serif",
+                    "label": "Times New Roman"
+                    },
+                    {
+                    "value": "Georgia, serif",
+                    "label": "Georgia"
+                    },
+                    {
+                    "value": "Verdana, sans-serif",
+                    "label": "Verdana"
+                    },
+                    {
+                    "value": "Courier New, monospace",
+                    "label": "Courier New"
+                    }
+            ]
+            
+        },
+        {
+         "type": "select",
+         "id": "text_weight",
+         "label": "Text Weight",
+         "default": "normal",
+         "options": [
+            {
+                "value": "normal",
+                "label": "Normal"
+            },
+            {
+                "value": "bold",
+                "label": "Bold"
+            },
+            {
+                "value": "bolder",
+                "label": "Bolder"
+            },
+            {
+                "value": "lighter",
+                "label": "Lighter"
+            },
+            {
+                "value": "100",
+                "label": "100"
+            },
+            {
+                "value": "200",
+                "label": "200"
+            },
+            {
+                "value": "300",
+                "label": "300"
+            },
+            {
+                "value": "400",
+                "label": "400"
+            },
+            {
+                "value": "500",
+                "label": "500"
+            },
+            {
+                "value": "600",
+                "label": "600"
+            },
+            {
+                "value": "700",
+                "label": "700"
+            },
+            {
+                "value": "800",
+                "label": "800"
+            },
+            {
+                "value": "900",
+                "label": "900"
+            }
+         ]
+        },
+        {
+            "type": "select",
+            "id": "text_transform",
+            "label": "Text Transform",
+            "default":"uppercase",
+            "options": [
+                {
+                    "value": "uppercase",
+                    "label": "Uppercase"
+                },
+                {
+                    "value": "lowercase",
+                    "label": "Lowercase"
+                },
+                {
+                    "value": "capitalize",
+                    "label": "Capitalize"
+                }
+            ]
+        },
+        {
+          "type": "color",
+          "id": "colorText",
+          "label": "Text color",
+          "default": "#000"
+        },
+        {
+            "type": "color",
+            "id": "border_color",
+            "label": "Border Color",
+            "default": "#000000"
+        },
+        {
+            "type": "number",
+            "id": "border_width",
+            "label": "Border Width (px)",
+            "default": 1
+        },
+        {
+            "type": "select",
+            "id": "border_style",
+            "label": "Border Style",
+            "options": [
+                {"value": "solid", "label": "Solid"},
+                {"value": "dotted", "label": "Dotted"},
+                {"value": "dashed", "label": "Dashed"},
+                {"value": "double", "label": "Double"}
+            ],
+            "default": "solid"
+        }
+    
+    ],
+    
+    "blocks": [
+    
+        {
+    
+          "type": "header",
+          "name": "Message",
+          "settings": [
+              {
+                "id": "message",
+                "type": "textarea",
+               "label": "Message"
+              },
+              {
+                "type":"url",
+                "id": "message_url" ,
+                "label": "Add Custom URL"
+              },
+              {
+                "type": "image_picker",
+                "id": "icon",
+                "label": "Icon",
+                "info": "Select an icon to display before and after the text."
+              },
+              
+              {
+                "type": "text",
+                "id": "icon_size",
+                "label": "Icon Size",
+                "default":"45"
+              }
+    
+          ]
+    
+        }
+    
+      ],
+    
+      "presets": [
+    
+        {
+    
+          "name": "Text Scrolling Effect"
+    
+        }
+    
+      ]
+    
+    }
+    
+    {% endschema %}

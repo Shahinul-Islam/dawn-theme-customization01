@@ -1,0 +1,345 @@
+<div class="ss-marquee-bar ss-messages" style="background-color: {{section.settings.marquee-bar-color}}; overflow: hidden;">
+  <div class="marquee-container">
+    {%- for block in section.blocks -%}
+    <div class="ss-message" style="background:{{block.settings.colorBackground}};color:{{block.settings.colorText}}; font-size:{{section.settings.text_size}}; font-weight:{{section.settings.text_weight}}; font-family:{{section.settings.text_family}};">
+      {% if block.settings.icon != blank %}
+      <span class="icon">
+        {% if block.settings.show_icon %}  
+        <img src="{{ block.settings.icon | image_url }}" 
+             width="{{ block.settings.icon_size }}"
+             height="{{ block.settings.icon_size }}"
+             alt="Icon"/>
+        {% endif %}
+      </span>
+      {% endif %}
+      <span class="message-text">{{ block.settings.message }}</span>
+      {% unless forloop.last == false %}
+        <span class="icon">
+        {% if block.settings.show_icon %}  
+        <img src="{{ block.settings.icon | image_url }}" 
+             width="{{ block.settings.icon_size }}"
+             height="{{ block.settings.icon_size }}"
+             alt="Icon"/> 
+        {% endif %}
+      </span>
+      {% endunless %} 
+    </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+
+<style>
+   .marquee-container {
+  display: flex;
+  /* animation: marquee-scroll {{ section.settings.speed }}s linear infinite; */
+}
+
+@keyframes marquee-scroll {
+  from { 
+        transform: translateX(0) 
+       }
+
+  to { transform: translateX(-100%) }
+}
+
+.ss-marquee-bar {
+  width: 100%;
+}
+
+.ss-marquee-bar .ss-message {
+  text-align: center;
+  padding: {{ section.settings.message_padding }};
+  display: inline-block;
+  align-items: center;
+}
+
+.ss-marquee-bar .ss-message .icon {
+  margin-right: 4px; /* Adjust as needed */
+}
+
+.ss-marquee-bar .ss-message .icon + .icon {
+  margin-left: 4px; /* Adjust as needed */
+}
+
+.ss-message span img {
+  align-items: center;
+  vertical-align: middle;
+  text-align: center;
+}
+.ss-message{
+    animation: marquee-scroll {{ section.settings.speed }}s linear infinite;
+}
+
+
+</style>
+
+ 
+
+{% schema %}
+
+{
+
+  "name": "Marquee Text Scrolling",
+
+  "settings": [
+
+    {
+
+      "type": "checkbox",
+
+      "id": "show_marquee_bar",
+
+      "label": "Show"
+
+    },
+    {
+        "type": "color",
+        "id": "marquee-bar-color",
+        "label": "Marquee-Bar-Color",
+        "default":"#FFA500"
+    },
+
+    {
+
+      "type": "select",
+
+      "id": "direction",
+
+      "options": [
+
+        {
+
+          "value": "left",
+
+          "label": "Right to Left"
+
+        },
+
+        {
+
+          "value": "right",
+
+          "label": "Left to Right"
+
+        }
+
+      ],
+
+      "default": "right",
+
+      "label": "Direction"
+
+    },
+
+    {
+
+      "type": "checkbox",
+
+      "id": "pause_on_hover",
+
+      "label": "Pause on hover"
+
+    },    
+
+    {
+
+      "type": "text",
+
+      "id": "speed",
+
+      "label": "Speed",
+
+      "default": "15"
+
+    },
+    {
+        "type": "text",
+        "id": "text_size",
+        "label": "Text Size",
+        "default":"22px"
+    },
+    {
+        "type": "text",
+        "id": "message_padding",
+        "label": "Message Padding",
+        "default": "4px",
+        "info": "Enter the padding value for the messages in the marquee bar."
+    },
+    {
+        "type": "select",
+        "id": "text_family",
+        "label": "Font Family",
+        "default": "Arial, sans-serif",
+        "options": [
+                {
+                "value": "Arial, sans-serif",
+                "label": "Arial"
+                },
+                {
+                "value": "Helvetica, sans-serif",
+                "label": "Helvetica"
+                },
+                {
+                "value": "Times New Roman, serif",
+                "label": "Times New Roman"
+                },
+                {
+                "value": "Georgia, serif",
+                "label": "Georgia"
+                },
+                {
+                "value": "Verdana, sans-serif",
+                "label": "Verdana"
+                },
+                {
+                "value": "Courier New, monospace",
+                "label": "Courier New"
+                }
+        ]
+        
+    },
+    {
+    "type": "select",
+    "id": "text_weight",
+    "label": "Text Weight",
+    "default": "normal",
+    "options": [
+        {
+            "value": "normal",
+            "label": "Normal"
+        },
+        {
+            "value": "bold",
+            "label": "Bold"
+        },
+        {
+            "value": "bolder",
+            "label": "Bolder"
+        },
+        {
+            "value": "lighter",
+            "label": "Lighter"
+        },
+        {
+            "value": "100",
+            "label": "100"
+        },
+        {
+            "value": "200",
+            "label": "200"
+        },
+        {
+            "value": "300",
+            "label": "300"
+        },
+        {
+            "value": "400",
+            "label": "400"
+        },
+        {
+            "value": "500",
+            "label": "500"
+        },
+        {
+            "value": "600",
+            "label": "600"
+        },
+        {
+            "value": "700",
+            "label": "700"
+        },
+        {
+            "value": "800",
+            "label": "800"
+        },
+        {
+            "value": "900",
+            "label": "900"
+        }
+    ]
+}
+
+],
+
+"blocks": [
+
+    {
+
+      "type": "header",
+
+      "name": "Message",
+
+      "settings": [
+
+          {
+
+            "id": "message",
+
+            "type": "textarea",
+
+           "label": "Message"
+
+          },
+
+          {
+
+            "type": "color",
+
+            "id": "colorBackground",
+
+            "label": "Background color",
+
+            "default": "#FFA500"
+
+          },
+
+          {
+
+            "type": "color",
+
+            "id": "colorText",
+
+            "label": "Text color",
+
+            "default": "#000"
+
+          },
+          {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Select an icon to display before and after the text."
+          },
+          {
+            "type": "checkbox",
+            "id": "show_icon",
+            "label": "Show Icon",
+            "default":true
+          },
+          {
+            "type": "text",
+            "id": "icon_size",
+            "label": "Icon Size",
+            "default":"45"
+          }
+
+      ]
+
+    }
+
+  ],
+
+  "presets": [
+
+    {
+
+      "name": "Marquee Text Scrolling"
+
+    }
+
+  ]
+
+}
+
+{% endschema %}
