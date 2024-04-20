@@ -1,4 +1,4 @@
-<section class="container">
+<section class="container-{{section.id}}">
     {% for block in section.blocks %}
         <p class="loop-text">
             {% if block.settings.icon != blank %}  
@@ -45,22 +45,24 @@
   </section>
 
   <style>
-    .container {
+    
+    .container-{{section.id}} {
         display: flex;
         white-space: nowrap;
         width: 100%;
         overflow: hidden;
         background-color: {{section.settings.marquee-bar-color}};
         color:{{section.settings.colorText}};
-        border-left:{{section.settings.border_width}};
-        border-right:{{section.settings.border_width}};
         border-top:{{section.settings.border_width}};
-        border-bottom:{{section.settings.border_width}};;
+        border-bottom:{{section.settings.border_width}};
+        border-left:0;
+        border-right:0;
         border-style: {{section.settings.border_style}};
         border-color:{{section.settings.border_color}}
 
   
     }
+
 .icon {
   
   margin-left: 4px;
@@ -70,7 +72,7 @@
 
 .loop-text {
   font-family: {{section.settings.text_family}};
-  font-size: {{section.settings.text_size}};
+  font-size: {{section.settings.text_size |  times: 0.75}};
   text-transform: {{section.settings.text_transform}};
   font-weight: {{section.settings.text_weight}};
   padding: {{section.settings.message_padding}};
@@ -78,6 +80,11 @@
   align-items: center;
   justify-content:center;
   margin:0px;
+}
+@media screen and (min-width:750px){
+ .loop-text{
+  font-size: {{section.settings.text_size}};
+ } 
 }
 .message a{
   text-decoration: none;
@@ -123,11 +130,14 @@
 }
 
   </style>
+  {% comment %} id="shopify-section-template--15646035771471__marquee_text_03_9y8UrB" {% endcomment %}
 
 {% schema %}
 
     {
       "name": "Text Scrolling Effect",
+      "tag": "section",
+      "class": "scrolling-text-effect",
       "settings": [
         {
           "type": "checkbox",
