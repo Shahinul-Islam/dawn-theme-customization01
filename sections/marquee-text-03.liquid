@@ -1,6 +1,6 @@
 <section class="container-{{section.id}}">
     {% for block in section.blocks %}
-        <p class="loop-text">
+        <p class="loop-text-{{section.id}}">
             {% if block.settings.icon != blank %}  
                 <span>
                     <img
@@ -13,13 +13,13 @@
                     />
                 </span>
             {% endif %}
-            <span class="message">
+            <span class="message-{{ section.id }}">
               {% if block.settings.message_url != blank %}  
-                <a href="{{block.settings.message_url}}" target="_blank" rel="noopener noreferrer">
-                  {{block.settings.message}}
-                </a>
-                {% else %}
-                {{block.settings.message}}
+                <a href="{{ block.settings.message_url }}" target="_blank" rel="noopener noreferrer">
+                  {{ block.settings.message }}
+                </a> 
+              {% else %}
+                <span>{{ block.settings.message }}</span>
               {% endif %}
             </span>
             {% comment %} {% if block.settings.icon != blank %}
@@ -45,8 +45,56 @@
   </section>
 
   <style>
+
+    /* loading fontt */
+      /* Google Fonts */
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Inconsolata:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Quicksand:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Droid+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Hind:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Oxygen:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Baloo:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
+      
+    /* loading fontt */
+    {% for block in section.blocks %} 
+       {{block.settings.custom_font_family | font_face}}
+    {% endfor %}
     
     .container-{{section.id}} {
+         font-family:{{section.settings.my_custom_font}};
         display: flex;
         white-space: nowrap;
         width: 100%;
@@ -58,9 +106,11 @@
         border-left:0;
         border-right:0;
         border-style: {{section.settings.border_style}};
-        border-color:{{section.settings.border_color}}
-
-  
+        border-color:{{section.settings.border_color}};
+        padding-top:{{section.settings.top_padding | times: 0.75}};
+        padding-bottom:{{section.settings.bottom_padding | times: 0.75}};
+        margin-top:{{section.settings.top_margin | times: 0.75}};
+        margin-bottom:{{section.settings.bottom_margin | times: 0.75}};
     }
 
 .icon {
@@ -70,11 +120,13 @@
   vertical-align: middle;
 }
 
-.loop-text {
-  font-family: {{section.settings.text_family}};
+.loop-text-{{section.id}} {
   font-size: {{section.settings.text_size |  times: 0.75}};
   text-transform: {{section.settings.text_transform}};
   font-weight: {{section.settings.text_weight}};
+  line-height: {{section.settings.line_height}};
+  letter-spacing:{{section.settings.letter_spacing}};
+  font-style:{{section.settings.custom_font_style}};
   padding: {{section.settings.message_padding}};
   display: flex;
   align-items: center;
@@ -82,29 +134,36 @@
   margin:0px;
 }
 @media screen and (min-width:750px){
- .loop-text{
+ .loop-text-{{section.id}}{
   font-size: {{section.settings.text_size}};
  } 
+ .container-{{section.id}} {
+        padding-top:{{section.settings.top_padding}};
+        padding-bottom:{{section.settings.bottom_padding}};
+        margin-top:{{section.settings.top_margin}};
+        margin-bottom:{{section.settings.bottom_margin}};
+ }
 }
-.message a{
+.message-{{section.id}} a{
   text-decoration: none;
+  color: inherit!important;
 }
 
-.message a:visited{
-  color: inherit;
+.message-{{section.id}} a:visited{
+  color: inherit!important;
 }
 
 {% if section.settings.direction == "left" %}
-    .loop-text {
+    .loop-text-{{section.id}} {
       animation: loopTextLtR {{ section.settings.speed }}s infinite linear;
     }
   {% else %}
-    .loop-text {
+    .loop-text-{{section.id}} {
       animation: loopText {{ section.settings.speed }}s infinite linear;
     }
   {% endif %}
 {% if section.settings.pause_on_hover %} 
-    .container:hover .loop-text{
+    .container-{{section.id}}:hover .loop-text-{{section.id}}{
         animation: none;
     }
     
@@ -130,7 +189,6 @@
 }
 
   </style>
-  {% comment %} id="shopify-section-template--15646035771471__marquee_text_03_9y8UrB" {% endcomment %}
 
 {% schema %}
 
@@ -171,7 +229,54 @@
           "type": "checkbox",
           "id": "pause_on_hover",
           "label": "Pause on hover"
-        },    
+        },
+        {
+          "type": "select",
+          "id": "my_custom_font",
+          "label": "Font Family",
+          "default": "Roboto",
+          "options": [
+            { "label": "Roboto", "value": "Roboto" },
+            { "label": "Open Sans", "value": "Open Sans" },
+            { "label": "Lato", "value": "Lato" },
+            { "label": "Montserrat", "value": "Montserrat" },
+            { "label": "Roboto Condensed", "value": "Roboto Condensed" },
+            { "label": "Poppins", "value": "Poppins" },
+            { "label": "Oswald", "value": "Oswald" },
+            { "label": "Source Sans Pro", "value": "Source Sans Pro" },
+            { "label": "Roboto Slab", "value": "Roboto Slab" },
+            { "label": "Playfair Display", "value": "Playfair Display" },
+            { "label": "Merriweather", "value": "Merriweather" },
+            { "label": "Roboto Mono", "value": "Roboto Mono" },
+            { "label": "Open Sans Condensed", "value": "Open Sans Condensed" },
+            { "label": "Nunito", "value": "Nunito" },
+            { "label": "Ubuntu", "value": "Ubuntu" },
+            { "label": "Inconsolata", "value": "Inconsolata" },
+            { "label": "Source Code Pro", "value": "Source Code Pro" },
+            { "label": "Titillium Web", "value": "Titillium Web" },
+            { "label": "Muli", "value": "Muli" },
+            { "label": "Karla", "value": "Karla" },
+            { "label": "Quicksand", "value": "Quicksand" },
+            { "label": "Pacifico", "value": "Pacifico" },
+            { "label": "Comfortaa", "value": "Comfortaa" },
+            { "label": "Work Sans", "value": "Work Sans" },
+            { "label": "Cabin", "value": "Cabin" },
+            { "label": "Fira Sans", "value": "Fira Sans" },
+            { "label": "Droid Sans", "value": "Droid Sans" },
+            { "label": "Exo", "value": "Exo" },
+            { "label": "Ubuntu Condensed", "value": "Ubuntu Condensed" },
+            { "label": "Arimo", "value": "Arimo" },
+            { "label": "Hind", "value": "Hind" },
+            { "label": "Raleway", "value": "Raleway" },
+            { "label": "Noto Sans", "value": "Noto Sans" },
+            { "label": "Oxygen", "value": "Oxygen" },
+            { "label": "Nunito Sans", "value": "Nunito Sans" },
+            { "label": "Baloo", "value": "Baloo" },
+            { "label": "Rubik", "value": "Rubik" },
+            { "label": "Bree Serif", "value": "Bree Serif" }
+          ]
+        }
+         ,    
     
         {
           "type": "text",
@@ -182,7 +287,7 @@
         {
             "type": "text",
             "id": "text_size",
-            "label": "Text Size",
+            "label": "Text Size (use px after the value)",
             "default":"22px"
         },
         {
@@ -192,61 +297,26 @@
             "default": "4px",
             "info": "First value for top and bottom and last value for left and right (ex: 1px 4px)"
         },
+        
         {
-            "type": "select",
-            "id": "text_family",
-            "label": "Font Family",
-            "default": "Arial, sans-serif",
-            "options": [
-                    {
-                    "value": "Arial, sans-serif",
-                    "label": "Arial"
-                    },
-                    {
-                    "value": "Helvetica, sans-serif",
-                    "label": "Helvetica"
-                    },
-                    {
-                    "value": "Times New Roman, serif",
-                    "label": "Times New Roman"
-                    },
-                    {
-                    "value": "Georgia, serif",
-                    "label": "Georgia"
-                    },
-                    {
-                    "value": "Verdana, sans-serif",
-                    "label": "Verdana"
-                    },
-                    {
-                    "value": "Courier New, monospace",
-                    "label": "Courier New"
-                    }
-            ]
-            
+            "type": "text",
+            "id": "line_height",
+            "label": "Line Height (use px after the value)",
+            "default": "2px"
+        },
+        {
+            "type": "text",
+            "id": "letter_spacing",
+            "label": "Letter Spacing (use px after the value)",
+            "default": "1px"
         },
         {
          "type": "select",
          "id": "text_weight",
          "label": "Text Weight",
-         "default": "normal",
+         "default": "400",
          "options": [
-            {
-                "value": "normal",
-                "label": "Normal"
-            },
-            {
-                "value": "bold",
-                "label": "Bold"
-            },
-            {
-                "value": "bolder",
-                "label": "Bolder"
-            },
-            {
-                "value": "lighter",
-                "label": "Lighter"
-            },
+            
             {
                 "value": "100",
                 "label": "100"
@@ -302,6 +372,10 @@
                 {
                     "value": "capitalize",
                     "label": "Capitalize"
+                },
+                {
+                    "value": "none",
+                    "label": "None"
                 }
             ]
         },
@@ -309,7 +383,7 @@
           "type": "color",
           "id": "colorText",
           "label": "Text color",
-          "default": "#000"
+          "default": "#000000"
         },
         {
             "type": "color",
@@ -318,10 +392,10 @@
             "default": "#000000"
         },
         {
-            "type": "number",
+            "type": "text",
             "id": "border_width",
             "label": "Border Width (px)",
-            "default": 1
+            "default": "2px"
         },
         {
             "type": "select",
@@ -334,6 +408,48 @@
                 {"value": "double", "label": "Double"}
             ],
             "default": "solid"
+        },
+        {
+            "type": "text",
+            "id": "top_padding",
+            "label": "Top Padding",
+            "default": "20px"
+        },
+        {
+            "type": "text",
+            "id": "bottom_padding",
+            "label": "Bottom Padding",
+            "default": "20px"
+        },
+        {
+            "type": "text",
+            "id": "top_margin",
+            "label": "Top Margin",
+            "default": "20px"
+        },
+        {
+            "type": "text",
+            "id": "bottom_margin",
+            "label": "Bottom Margin",
+            "default": "20px"
+        },
+        {
+          "type": "select",
+          "id": "custom_font_style",
+          "label": "Font style",
+          "info": "If you're unsure, use \"none\".",
+          "default": "normal",
+          "options": [
+            
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "italic",
+              "label": "Italic"
+            }
+          ]
         }
     
     ],
@@ -355,6 +471,7 @@
                 "id": "message_url" ,
                 "label": "Add Custom URL"
               },
+              
               {
                 "type": "image_picker",
                 "id": "icon",
